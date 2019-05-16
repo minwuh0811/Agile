@@ -13,15 +13,15 @@ public class Main {
         choice= Integer.parseInt ( scanner.nextLine ());
 
         if (choice==1)
-            System.out.println ("Enter the name of the product");
+            System.out.print ("Enter the name of the product: ");
             String name = scanner.nextLine ();
-            System.out.println ("Enter the price of the product");
+            System.out.print ("Enter the price of the product: ");
             double price = Integer.parseInt ( scanner.nextLine ());
-            System.out.println ("Enter the type of the product");
+            System.out.print ("Enter the type of the product: ");
             String type = scanner.nextLine ();
-            System.out.println ("Enter the amount of the product");
+            System.out.print ("Enter the amount of the product: ");
             double amount = Integer.parseInt ( scanner.nextLine ());
-            System.out.println ("Choose the category of the product");
+            System.out.print ("Choose the category of the product: ");
             String category = scanner.nextLine ();
             int id = getID ();
             varor = new Varor (name, price, type,category, id, amount);
