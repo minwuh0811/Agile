@@ -17,7 +17,7 @@ public class Main {
             String name = scanner.nextLine ();
             System.out.print ("Enter the price of the product: ");
             double price = Integer.parseInt ( scanner.nextLine ());
-            System.out.print ("Enter the type of the product: ");
+            System.out.print ("Enter the unit of the product: ");
             String type = scanner.nextLine ();
             System.out.print ("Enter the amount of the product: ");
             double amount = Integer.parseInt ( scanner.nextLine ());
