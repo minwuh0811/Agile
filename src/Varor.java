@@ -80,6 +80,11 @@ public class Varor  {
     @Override
     public String toString()
     {
-        return varorName + ": SEK " + varorPrice + " x " /*+ "item/"*/ + typ + " " + varorKategori + " " + ID + " " + varorAntal;
+        return  "Product: " + varorName +
+                "\tPrice: " + varorPrice +
+                "\tType: " + typ +
+                "\tCategory: " + varorKategori +
+                "\tID: " + ID +
+                "\tAmount: " + varorAntal;
     }
 }
