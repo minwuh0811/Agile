@@ -12,6 +12,7 @@ public class Administrator {
     private int administratorPhone;
     private String loginName;
     private String loginPassword;
+    private ArrayList<Administrator> administrators = new ArrayList<> ();
 
     public Administrator (String administratorFirstName, String administratorLastName, String staffNumberID, int administratorPhone, String loginName, String loginPassword) {
         this.administratorFirstName = administratorFirstName;
