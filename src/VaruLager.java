@@ -29,5 +29,4 @@ public class VaruLager {
         this.products = products;
     }
 
-
 }
