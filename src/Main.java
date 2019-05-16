@@ -1,11 +1,14 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     static Varor varor = new Varor ();
     static VaruLager varuLager = new VaruLager ();
+    static Scanner scanner = new Scanner (System.in);
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner (System.in);
+
         System.out.println("For Administrator enter 1");
         int choice = Integer.parseInt ( scanner.nextLine ());
         if(choice==1)
@@ -13,6 +16,15 @@ public class Main {
         choice= Integer.parseInt ( scanner.nextLine ());
 
         if (choice==1)
+           addproduct();
+            //System.out.println (varuLager.products.toString ());
+            System.out.println(varuLager.products.toString ());
+
+
+        }
+
+        public static ArrayList addproduct(){
+
             System.out.print ("Enter the name of the product: ");       //Tillverkarens namn på produkten
             String name = scanner.nextLine ();
             System.out.print ("Enter the price of the product: ");      //Pris på produkten
@@ -26,12 +38,9 @@ public class Main {
             int id = getID ();
             varor = new Varor (name, price, type,category, id, amount);
             varuLager.products.add (varor);
-
-            //System.out.println (varuLager.products.toString ());
-            System.out.println(varuLager.products.get(0));
-
-
+            return varuLager.products;
         }
+
         public static int getID (){
             return varor.getID ();
     }
