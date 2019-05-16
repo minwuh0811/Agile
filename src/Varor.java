@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.Random;
 
 public class Varor implements Serializable {
     private final static long serialVersionUID = 4661471824932115886L;
@@ -6,11 +7,22 @@ public class Varor implements Serializable {
     private String varorName;
     private double varorPrice;
     private String typ;
-    private int ID;
+    private int ID = new Random().nextInt(100) + 1;;
     private String varorKategori;
+    private double varorAntal;
 
-    public Varor()
-    { }
+
+    public Varor() {
+    }
+
+
+    public double getVarorAntal() {
+        return varorAntal;
+    }
+
+    public void setVarorAntal(double varorAntal) {
+        this.varorAntal = varorAntal;
+    }
 
 
     public int getID() {
@@ -53,19 +65,20 @@ public class Varor implements Serializable {
         this.typ = typ;
     }
 
-    public Varor(String varorName, double varorPrice, String typ,String varorKategori, int ID )
+    public Varor(String varorName, double varorPrice, String typ,String varorKategori, int ID, double varorAntal )
     {
         this.varorName = varorName;
         this.varorPrice = varorPrice;
         this.typ = typ;
         this.varorKategori = varorKategori;
         this.ID = ID;
+        this.varorAntal = varorAntal;
 
     }
 
     @Override
     public String toString()
     {
-        return varorName + ": SEK " + varorPrice + " x " + "item/" + typ + " " + varorKategori + " " + ID ;
+        return varorName + ": SEK " + varorPrice + " x " + "item/" + typ + " " + varorKategori + " " + ID + " " + varorAntal;
     }
 }
