@@ -4,9 +4,4 @@ public class VaruLager {
 
     ArrayList<Varor> products = new ArrayList<>();
 
-
-
-
-
-
 }
