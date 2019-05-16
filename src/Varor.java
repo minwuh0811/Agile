@@ -1,8 +1,9 @@
 import java.io.Serializable;
 import java.util.Random;
 
-public class Varor implements Serializable {
-    private final static long serialVersionUID = 4661471824932115886L;
+public class Varor  {
+
+    //private final static long serialVersionUID = 4661471824932115886L;
 
     private String varorName;
     private double varorPrice;

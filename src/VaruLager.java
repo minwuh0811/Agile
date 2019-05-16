@@ -6,6 +6,9 @@ public class VaruLager {
     ArrayList<Varor> products = new ArrayList<>();
 
     //Constructor
+
+    public VaruLager (){}
+
     public VaruLager (String kategori, ArrayList<Varor> products){
         this.kategori = kategori;
         this.products = products;
