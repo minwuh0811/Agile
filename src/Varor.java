@@ -7,7 +7,7 @@ public class Varor implements Serializable {
     private String varorName;
     private double varorPrice;
     private String typ;
-    private int ID = new Random().nextInt(100) + 1;;
+    private int ID = new Random().nextInt(100) + 1;
     private String varorKategori;
     private double varorAntal;
 
