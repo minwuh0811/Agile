@@ -26,21 +26,13 @@ public class Main {
             int id = getID ();
             varor = new Varor (name, price, type,category, id, amount);
             varuLager.products.add (varor);
-        System.out.println (varuLager.products.toString ());
+
+            //System.out.println (varuLager.products.toString ());
+            System.out.println(varuLager.products.get(0));
 
 
-
-
-
-
-
-
-
-
-
-    }
-    public static int getID (){
-
-        return varor.getID ();
+        }
+        public static int getID (){
+            return varor.getID ();
     }
 }
