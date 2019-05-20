@@ -65,7 +65,7 @@ public class Varor  {
         this.typ = typ;
     }
 
-    public Varor(String varorName, double varorPrice, String typ,String varorKategori )
+    public Varor(String varorName, double varorPrice, String typ, String varorKategori )
     {
         this.varorName = varorName;
         this.varorPrice = varorPrice;
