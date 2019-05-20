@@ -8,7 +8,7 @@ public class Varor  {
     private String varorName;
     private double varorPrice;
     private String typ;
-    private int ID = new Random().nextInt(100) + 1;
+    private int ID; // = new Random().nextInt(100) + 1;
     private String varorKategori;
     private double varorAntal;
 
@@ -66,14 +66,14 @@ public class Varor  {
         this.typ = typ;
     }
 
-    public Varor(String varorName, double varorPrice, String typ,String varorKategori, int ID, double varorAntal )
+    public Varor(String varorName, double varorPrice, String typ,String varorKategori )
     {
         this.varorName = varorName;
         this.varorPrice = varorPrice;
         this.typ = typ;
         this.varorKategori = varorKategori;
-        this.ID = ID;
-        this.varorAntal = varorAntal;
+        this.ID = new Random().nextInt(100) + 1;
+        //this.varorAntal = varorAntal;
 
     }
 

@@ -18,12 +18,12 @@ public class Main {
         if (choice==1)
            addproduct();
             //System.out.println (varuLager.products.toString ());
-            System.out.println(varuLager.products.toString ());
+            //System.out.println(varuLager.products.toString ());
 
 
         }
 
-        public static ArrayList addproduct(){
+        public static void addproduct(){
 
             System.out.print ("Enter the name of the product: ");       //Tillverkarens namn på produkten
             String name = scanner.nextLine ();
@@ -37,10 +37,12 @@ public class Main {
             double amount = Integer.parseInt ( scanner.nextLine ());
             System.out.print ("Choose the category of the product: ");  //Kategori av produkten
             String category = scanner.nextLine ();
-            int id = getID ();
-            varor = new Varor (name, price, type,category, id, amount);
-            varuLager.products.add (varor);
-            return varuLager.products;
+
+            //int id = getID ();
+            varor = new Varor (name, price, type,category);
+            varuLager = new VaruLager(varor, amount);
+            //varuLager.products.add (varor);
+            //return varuLager.products;
         }
 
         public static int getID (){
