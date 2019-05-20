@@ -1,8 +1,12 @@
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.mockito.*;
 
 class MainTest {
+
+    Main main;
+
+
+
 
     @Test
     void main() {
@@ -10,7 +14,7 @@ class MainTest {
 
     @Test
     void addproduct() {
-        
+
 
     }
 
