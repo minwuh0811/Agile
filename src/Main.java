@@ -29,7 +29,7 @@ public class Main {
             String name = scanner.nextLine ();
             System.out.print ("Enter the price of the product: ");      //Pris på produkten
             double price = Integer.parseInt ( scanner.nextLine ());
-            System.out.print ("Enter the type of the product: ");       //Varianten på produkten
+            System.out.print ("Enter the type of " /*the product"*/+ name +": ");       //Varianten på produkten ex Ekologisk
             String type = scanner.nextLine ();
             System.out.print ("Enter the amount of the product: ");     //Antalet produkter
             double amount = Integer.parseInt ( scanner.nextLine ());
