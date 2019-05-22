@@ -6,7 +6,7 @@ class VaruLagerTest {
 
     @Test
     void addVaror() {
-        Varor varorTest = new Varor("S80", 10000, "Sedan", "Bil" );
+        Varor varorTest = new Varor("S80", 10000, "Sedan", "Bil", 15,2 );
 
         VaruLager varuLagerTest = new VaruLager();
 

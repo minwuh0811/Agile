@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     static Varor varor = new Varor();
+    static User user = new User();
     static VaruLager varuLager = new VaruLager();
     static Scanner scanner = new Scanner (System.in);
 
@@ -11,24 +12,31 @@ public class Main {
         boolean newBoolean = true;
         while (newBoolean) {
             System.out.println("For Administrator enter 1");
+            System.out.println("For User press 2");
             int choice = Integer.parseInt(scanner.nextLine());
-            if (choice == 1)
+            if (choice == 1) {
                 System.out.println("To add products press 1");
-            System.out.println("To remove a product press 2");
-            choice = Integer.parseInt(scanner.nextLine());
+                System.out.println("To remove a product press 2");
+                choice = Integer.parseInt(scanner.nextLine());
 
-            switch (choice) {
-                case 1:
-                    addProduct();
-                    break;
+                switch (choice) {
+                    case 1:
+                        addProduct();
+                        break;
 
-                case 2:
-                    removeProduct();
-                    break;
+                    case 2:
+                        removeProduct();
+                        break;
 
-                default:
-                    System.out.println("Invalid choice");
-                    newBoolean = false;
+                    default:
+                        System.out.println("Invalid choice");
+                        newBoolean = false;
+
+                }
+            }
+            else if (choice==2){
+                System.out.println("To add product press 1");
+                choice = Integer.parseInt(scanner.nextLine());
 
             }
         }
@@ -88,6 +96,21 @@ public class Main {
 
     }
 
+    public void addProductToCustomer(){
+
+        System.out.println("Choose a product by ID:");
+        System.out.println(varuLager.products.toString());
+        int chose = Integer.parseInt(scanner.nextLine());
+        for (int i = 0; i < varuLager.products.size(); i++) {
+            if (varuLager.products.get(i).getID() == chose) {
+                user.shoppingCartList.add(varuLager.products.get(i));
+
+                System.out.println("The products has been added to your Shopping Cart");
+                break;
+            }
+        }
+
+    }
 
     public static int getID (){
 
