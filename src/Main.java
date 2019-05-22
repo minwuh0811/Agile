@@ -31,14 +31,19 @@ public class Main {
                     default:
                         System.out.println("Invalid choice");
                         newBoolean = false;
-
                 }
             }
             else if (choice==2){
                 System.out.println("To add product press 1");
                 choice = Integer.parseInt(scanner.nextLine());
+                addProductToCustomer();
+                System.out.println(user.shoppingCartList.toString());
+                newBoolean=false;
+                break;
 
             }
+            else
+                break;
         }
     }
 
@@ -96,19 +101,20 @@ public class Main {
 
     }
 
-    public void addProductToCustomer(){
+    public static void addProductToCustomer(){
 
-        System.out.println("Choose a product by ID:");
         System.out.println(varuLager.products.toString());
+        System.out.println("Choose a product by ID:");
         int chose = Integer.parseInt(scanner.nextLine());
         for (int i = 0; i < varuLager.products.size(); i++) {
             if (varuLager.products.get(i).getID() == chose) {
                 user.shoppingCartList.add(varuLager.products.get(i));
-
                 System.out.println("The products has been added to your Shopping Cart");
+
                 break;
             }
         }
+
 
     }
 
