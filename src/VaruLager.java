@@ -2,26 +2,27 @@ import java.util.ArrayList;
 
 public class VaruLager {
 
-    private String kategori;
-    ArrayList<Varor> products = new ArrayList<>();
+    public ArrayList<Varor> products = new ArrayList<>();
+    private Varor varor;
+    private double varorAntal;
 
     //Constructor
 
     public VaruLager (){}
 
-    public VaruLager (String kategori, ArrayList<Varor> products){
-        this.kategori = kategori;
-        this.products = products;
-
+    public VaruLager (Varor varor, double varorAntal){
+        this.varor = varor;
+        this.varorAntal = varorAntal;
     }
 
     //Getters & Setters
-    public String getKategori() {
-        return kategori;
+
+    public Varor getVaror() {
+        return varor;
     }
 
-    public void setKategori(String kategori) {
-        this.kategori = kategori;
+    public void setVaror(Varor varor) {
+        this.varor = varor;
     }
 
     public ArrayList<Varor> getProducts() {
@@ -32,4 +33,7 @@ public class VaruLager {
         this.products = products;
     }
 
+    public void addVaror(Varor varor){
+        products.add(varor);
+    }
 }
