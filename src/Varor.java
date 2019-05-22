@@ -1,13 +1,13 @@
-import java.io.Serializable;
 import java.util.Random;
 
 public class Varor  {
 
+    //private final static long serialVersionUID = 4661471824932115886L;
 
     private String varorName;
     private double varorPrice;
     private String typ;
-    private int ID; // = new Random().nextInt(100) + 1;
+    private int ID = new Random().nextInt(100) + 1;
     private String varorKategori;
     private double varorAntal;
 
@@ -65,14 +65,14 @@ public class Varor  {
         this.typ = typ;
     }
 
-    public Varor(String varorName, double varorPrice, String typ, String varorKategori )
+    public Varor(String varorName, double varorPrice, String typ,String varorKategori, int ID, double varorAntal )
     {
         this.varorName = varorName;
         this.varorPrice = varorPrice;
         this.typ = typ;
         this.varorKategori = varorKategori;
-        this.ID = new Random().nextInt(100) + 1;
-        //this.varorAntal = varorAntal;
+        this.ID = ID;
+        this.varorAntal = varorAntal;
 
     }
 
