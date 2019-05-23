@@ -6,18 +6,22 @@ public class User {
     private String name;
     private String lastName;
     private String city;
+    private String userName;
+    private String password;
     Varor varor;
     int id= new Random().nextInt(100) + 1;
     ArrayList<Varor> shoppingCartList = new ArrayList<>();
 
     public User (){}
 
-    public User (String name, String lastname, String city, int id) {
+    public User (String name, String lastname, String city, int id, String userName, String password) {
 
         this.name = name;
         this.lastName = lastname;
         this.city = city;
         this.id = id;
+        this.userName = userName;
+        this.password = password;
         shoppingCartList = new ArrayList<>();
 
     }
@@ -33,6 +37,8 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", city='" + city + '\'' +
                 ", product=" + varor +
+                ", userName=" + userName +
+                ", Password=" + password +
                 ", id=" + id +
                 ", shoppingCartList=" + shoppingCartList +
                 '}';
@@ -70,6 +76,13 @@ public class User {
         this.varor = product;
     }
 
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
 
 
     public int getId() {
