@@ -56,7 +56,7 @@ public class Main {
         for (int i = 0; i < varuLager.products.size(); i++) {
             if (varuLager.products.get(i).getID() == id) {
                 varuLager.products.remove(i);
-                System.out.println("The products has been removed");
+                System.out.println("The product has been removed");
                 break;
             }
         }
