@@ -6,22 +6,18 @@ public class User {
     private String name;
     private String lastName;
     private String city;
-    private String userName;
-    private String userPassword;
     Varor varor;
     int id= new Random().nextInt(100) + 1;
     ArrayList<Varor> shoppingCartList = new ArrayList<>();
 
     public User (){}
 
-    public User (String name, String lastname, String city, int id, String userName, String userPassword) {
+    public User (String name, String lastname, String city, int id) {
 
         this.name = name;
         this.lastName = lastname;
         this.city = city;
         this.id = id;
-        this.userName = userName;
-        this.userPassword = userPassword;
         shoppingCartList = new ArrayList<>();
 
     }
@@ -34,13 +30,11 @@ public class User {
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", lastName=' " + lastName + '\'' +
                 ", city='" + city + '\'' +
-                ", product=" + varor +
-                ", userName=" + userName +
-                ", userPassword=" + userPassword +
-                ", id=" + id +
-                ", shoppingCartList=" + shoppingCartList +
+                ", product= " + varor +
+                ", id= " + id +
+                ", shoppingCartList= " + shoppingCartList +
                 '}';
     }
 
@@ -76,13 +70,6 @@ public class User {
         this.varor = product;
     }
 
-    public String getUserName() {
-        return this.userName;
-    }
-
-    public String getPassword() {
-        return this.userPassword;
-    }
 
 
     public int getId() {
