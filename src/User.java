@@ -7,7 +7,7 @@ public class User {
     private String lastName;
     private String city;
     private String userName;
-    private String password;
+    private String userPassword;
     Varor varor;
     int id= new Random().nextInt(100) + 1;
     ArrayList<Varor> shoppingCartList = new ArrayList<>();
@@ -21,7 +21,7 @@ public class User {
         this.city = city;
         this.id = id;
         this.userName = userName;
-        this.password = password;
+        this.userPassword = userPassword;
         shoppingCartList = new ArrayList<>();
 
     }
@@ -38,7 +38,7 @@ public class User {
                 ", city='" + city + '\'' +
                 ", product=" + varor +
                 ", userName=" + userName +
-                ", Password=" + password +
+                ", userPassword=" + userPassword +
                 ", id=" + id +
                 ", shoppingCartList=" + shoppingCartList +
                 '}';
@@ -81,7 +81,7 @@ public class User {
     }
 
     public String getPassword() {
-        return this.password;
+        return this.userPassword;
     }
 
 
