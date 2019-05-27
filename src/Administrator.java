@@ -9,16 +9,16 @@ public class Administrator {
     private String administratorFirstName;
     private String administratorLastName;
     private String staffNumberID;
-    private int administratorPhone;
+    private int administratorMail;
     private String loginName;
     private String loginPassword;
     private ArrayList<Administrator> administrators = new ArrayList<> ();
 
-    public Administrator (String administratorFirstName, String administratorLastName, String staffNumberID, int administratorPhone, String loginName, String loginPassword) {
+    public Administrator (String administratorFirstName, String administratorLastName, String staffNumberID, int administratorMail, String loginName, String loginPassword) {
         this.administratorFirstName = administratorFirstName;
         this.administratorLastName = administratorLastName;
         this.staffNumberID = staffNumberID;
-        this.administratorPhone = administratorPhone;
+        this.administratorMail = administratorMail;
         this.loginName = loginName;
         this.loginPassword = loginPassword;
     }
@@ -29,7 +29,7 @@ public class Administrator {
                 "administratorFirstName='" + administratorFirstName + '\'' +
                 ", administratorLastName='" + administratorLastName + '\'' +
                 ", staffNumberID='" + staffNumberID + '\'' +
-                ", administratorPhone=" + administratorPhone +
+                ", administratorMail=" + administratorMail +
                 ", loginName='" + loginName + '\'' +
                 ", loginPassword='" + loginPassword + '\'' +
                 '}';
@@ -59,12 +59,12 @@ public class Administrator {
         this.staffNumberID = staffNumberID;
     }
 
-    public int getAdministratorPhone () {
-        return administratorPhone;
+    public int getAdministratorMail () {
+        return administratorMail;
     }
 
-    public void setAdministratorPhone (int administratorPhone) {
-        this.administratorPhone = administratorPhone;
+    public void setAdministratorMail (int administratorMail) {
+        this.administratorMail = administratorMail;
     }
 
     public String getLoginName () {

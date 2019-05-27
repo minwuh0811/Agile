@@ -5,7 +5,7 @@ public class User {
 
     private String name;
     private String lastName;
-    private String city;
+    private String mail;
     private String userName;
     private String userPassword;
     Varor varor;
@@ -14,11 +14,11 @@ public class User {
 
     public User (){}
 
-    public User (String name, String lastname, String city, int id, String userName, String userPassword) {
+    public User (String name, String lastname, String mail, int id, String userName, String userPassword) {
 
         this.name = name;
         this.lastName = lastname;
-        this.city = city;
+        this.mail = mail;
         this.id = id;
         this.userName = userName;
         this.userPassword = userPassword;
@@ -35,7 +35,7 @@ public class User {
         return "User{" +
                 "name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", city='" + city + '\'' +
+                ", mail='" + mail + '\'' +
                 ", product=" + varor +
                 ", userName=" + userName +
                 ", userPassword=" + userPassword +
@@ -60,12 +60,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getCity() {
-        return city;
+    public String getMail() {
+        return mail;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public Varor getProduct() {
