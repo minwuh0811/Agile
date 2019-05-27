@@ -20,5 +20,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Java-FX-11" level="application" />
   </component>
 </module>

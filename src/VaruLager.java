@@ -20,7 +20,6 @@ public class VaruLager {
     public Varor getVaror() {
         return varor;
     }
-
     public void setVaror(Varor varor) {
         this.varor = varor;
     }
