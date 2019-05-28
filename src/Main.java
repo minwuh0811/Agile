@@ -214,13 +214,9 @@ public class Main  {
         String password;
         String email;
 
-        JOptionPane.showInputDialog("To register please enter your information");
-        JOptionPane.showInputDialog("Enter a username:");
-        username = input.next();
-        JOptionPane.showInputDialog("Enter a password:");
-        password = input.next();
-        JOptionPane.showInputDialog("Enter your email adress: ");
-        email = input.next();
-        JOptionPane.showInputDialog("Register successful");
+       username = JOptionPane.showInputDialog("To register please enter your information: \nEnter a username:");
+       password= JOptionPane.showInputDialog("Enter a password:");
+       email = JOptionPane.showInputDialog("Enter your email adress: ");
+       JOptionPane.showInputDialog("Register successful");
     }
 }
