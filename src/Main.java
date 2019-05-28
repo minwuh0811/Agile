@@ -1,10 +1,9 @@
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.awt.*;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 
 
 public class Main  {
@@ -16,11 +15,12 @@ public class Main  {
     static User user;
     static VaruLager varuLager;
     static String dataBaseUserName = "root";
-    static String dataBaseUserPassword = "krasen86";
-    static String dataBaseMySQLUrl="jdbc:mysql://localhost/userstory?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    static String dataBaseUserPassword = "password";
+    static String dataBaseMySQLUrl="jdbc:mysql://192.168.99.100:3306/firstdb";
     static String productDataBaseTable = "products";
     static String adminDataBaseTable = "admin";
     static String userDataBaseTable = "user";
+    static JTable table;// 声明表格
 
     public Main() {
         varuLager = new VaruLager();
@@ -33,12 +33,12 @@ public class Main  {
         boolean newBoolean = true;
         while (newBoolean) {
 
-            String string = JOptionPane.showInputDialog("For Administrator enter 1\nFor User press 2\nTo register new user press 3");
+            String string = JOptionPane.showInputDialog("For Administrator enter 1\nFor User press 2\nTo register new user press 3\nExist press 4");
             int choice = Integer.parseInt(string);
             if (choice == 1 && logInAdmin()) {
 
 
-             string = JOptionPane.showInputDialog("To add products press 1\nTo remove a product press 2");
+             string = JOptionPane.showInputDialog("To add products press 1\nTo remove a product press 2\nTo show administrator list press 3\nTo show user list press 4");
                 choice = Integer.parseInt(string);
                 switch (choice) {
 
@@ -49,7 +49,12 @@ public class Main  {
                     case 2:
                         removeProduct();
                         break;
-
+                    case 3:
+                        AdminDataBase();
+                        break;
+                    case 4:
+                        UserDataBase();
+                        break;
                     default:
                         JOptionPane.showMessageDialog(null,"Invalid choice");
                         newBoolean = false;
@@ -69,15 +74,16 @@ public class Main  {
                     registerUser();
                 }
 
-            else
+            else if (choice==4) {
                 break;
+            }
         }
 
     }
     public static void loadData(){
         try {
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(dataBaseMySQLUrl, dataBaseUserName, dataBaseUserPassword);
             statement = connection.createStatement();
             resultSet = statement.executeQuery("select * from "+userDataBaseTable+";");
@@ -284,6 +290,134 @@ public class Main  {
 
         return verify;
     }
+
+
+    public static Vector getAdminDataVector() {
+
+        Vector dataVector =new Vector();
+        Vector rowVector = new Vector();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(dataBaseMySQLUrl, dataBaseUserName, dataBaseUserPassword);
+            statement = connection.createStatement();
+            String sql = "SELECT * FROM admin";
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                rowVector.add(rs.getString("administratorFirstName"));
+                rowVector.add(rs.getString("administratorLastName"));
+                rowVector.add(rs.getString("staffNumberID"));
+                rowVector.add(rs.getString("administratorMail"));
+                rowVector.add(rs.getString("loginName"));
+                rowVector.add(rs.getString("loginPassword"));
+            }
+            dataVector.add(rowVector);
+
+
+         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return dataVector;
+    }
+    public static Vector getUserDataVector() {
+        Vector dataVector = new Vector();
+        Vector rowVector = new Vector();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(dataBaseMySQLUrl, dataBaseUserName, dataBaseUserPassword);
+            statement = connection.createStatement();
+            String sql = "SELECT * FROM user";
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                rowVector.add(rs.getString(1));
+                rowVector.add(rs.getString(2));
+                rowVector.add(rs.getString(3));
+                rowVector.add(rs.getInt(4));
+                rowVector.add(rs.getString(5));
+                rowVector.add(rs.getString(6));
+            }
+            dataVector.add(rowVector);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return dataVector;
+    }
+
+    public static Vector getAdminColumnVector() {
+        Vector columnVector = new Vector();
+        columnVector.add("administratorFirstName");
+        columnVector.add("administratorLastName");
+        columnVector.add("staffNumberID");
+        columnVector.add("administratorMail");
+        columnVector.add("loginName");
+        columnVector.add("loginPassword");
+        return columnVector;
+    }
+    public static Vector getUserColumnVector() {
+        Vector columnVector = new Vector();
+        columnVector.add("fristname");
+        columnVector.add("lastName");
+        columnVector.add("mail");
+        columnVector.add("userID");
+        columnVector.add("userName");
+        columnVector.add("userPassword");
+        return columnVector;
+    }
+
+
+
+    public static void AdminDataBase() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(dataBaseMySQLUrl, dataBaseUserName, dataBaseUserPassword);
+            statement = connection.createStatement();
+            String sql = "SELECT * FROM admin";
+            ResultSet rs = statement.executeQuery(sql);
+            Vector columnVector = getAdminColumnVector();
+            Vector dataVector = getAdminDataVector();
+            System.out.println(dataVector.get(0).toString());
+            final JScrollPane scrollPane = new JScrollPane();
+            JFrame myframe=new JFrame();
+            myframe.getContentPane().add(scrollPane, BorderLayout.CENTER);
+            table = new JTable(dataVector, columnVector);
+            table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            table.setFont(new Font("",0,16));
+            scrollPane.setViewportView(table);
+
+            myframe.setTitle("连接远程docker数据库显示");
+            myframe.setBounds(100, 100, 1000, 100);
+            myframe.setVisible(true);
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(null,e);
+        }
+
+    }
+    public static void UserDataBase() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(dataBaseMySQLUrl, dataBaseUserName, dataBaseUserPassword);
+            statement = connection.createStatement();
+            String sql = "SELECT * FROM user";
+            ResultSet rs = statement.executeQuery(sql);
+            Vector columnVector = getUserColumnVector();
+            Vector dataVector = getUserDataVector();
+            System.out.println(dataVector.get(0).toString());
+            final JScrollPane scrollPane = new JScrollPane();
+            JFrame myframe = new JFrame();
+            myframe.getContentPane().add(scrollPane, BorderLayout.CENTER);
+            table = new JTable(dataVector, columnVector);
+            table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            table.setFont(new Font("", 0, 16));
+            scrollPane.setViewportView(table);
+
+            myframe.setTitle("连接远程docker数据库显示");
+            myframe.setBounds(100, 100, 1000, 100);
+            myframe.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
 
 
 }
