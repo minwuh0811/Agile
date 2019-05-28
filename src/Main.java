@@ -48,7 +48,7 @@ public class Main  {
                 logIn();
                 string = JOptionPane.showInputDialog("To add product press 1");
                 choice = Integer.parseInt(string);
-                if (choice == 2) {
+                if (choice == 1) {
                     addProductToCustomer();
                     JOptionPane.showMessageDialog(null, "Products in shopingcart: \n" + printArrayShopping());
 
