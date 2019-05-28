@@ -306,7 +306,7 @@ public class Main  {
             while (rs.next()) {
                 rowVector.add(rs.getString("administratorFirstName"));
                 rowVector.add(rs.getString("administratorLastName"));
-                rowVector.add(rs.getString("staffNumberID"));
+                rowVector.add(rs.getInt("staffNumberID"));
                 rowVector.add(rs.getString("administratorMail"));
                 rowVector.add(rs.getString("loginName"));
                 rowVector.add(rs.getString("loginPassword"));
@@ -375,7 +375,7 @@ public class Main  {
             ResultSet rs = statement.executeQuery(sql);
             Vector columnVector = getAdminColumnVector();
             Vector dataVector = getAdminDataVector();
-            System.out.println(dataVector.get(0).toString());
+            System.out.println(dataVector.toString());
             final JScrollPane scrollPane = new JScrollPane();
             JFrame myframe=new JFrame();
             myframe.getContentPane().add(scrollPane, BorderLayout.CENTER);
