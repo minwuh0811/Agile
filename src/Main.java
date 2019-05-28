@@ -14,6 +14,7 @@ public class Main  {
     static Varor varor = new Varor();
     static User user = new User();
     static VaruLager varuLager = new VaruLager();
+    //static User userRegister = new User();
 
 
     public static void main (String[]args){
@@ -43,18 +44,19 @@ public class Main  {
                         newBoolean = false;
                 }
             }
-            else if (choice==2){
+            else if (choice==2) {
                 string = JOptionPane.showInputDialog("To add product press 1\nTo register press 2");
                 choice = Integer.parseInt(string);
-                if (choice==2) {
+                if (choice == 2) {
                     addProductToCustomer();
-                    JOptionPane.showMessageDialog(null,"Products in shopingcart: \n" + printArrayShopping() );
+                    JOptionPane.showMessageDialog(null, "Products in shopingcart: \n" + printArrayShopping());
 
                 }
-                else if(choice==2){
+            }
+
+                else if(choice==3){
                     JOptionPane.showInputDialog("Enter your name");
                 }
-            }
 
             else
                 break;
@@ -210,13 +212,20 @@ public class Main  {
 
         Scanner input = new Scanner(System.in);
 
-        String username;
-        String password;
-        String email;
+        String name;
+        String lastName;
+        String mail;
+        String userName;
+        String userPassword;
 
-       username = JOptionPane.showInputDialog("To register please enter your information: \nEnter a username:");
-       password= JOptionPane.showInputDialog("Enter a password:");
-       email = JOptionPane.showInputDialog("Enter your email adress: ");
+       name =  JOptionPane.showInputDialog("To register please enter your information: \nEnter your name:");
+       lastName = JOptionPane.showInputDialog("Enter lastname:");
+       userName = JOptionPane.showInputDialog("Enter a username:");
+       userPassword= JOptionPane.showInputDialog("Enter a password:");
+       mail = JOptionPane.showInputDialog("Enter your email adress: ");
+       int ID = getID();
+       User user = new User (name, lastName, mail, ID, userName, userPassword);
+       User.userRegister.add(user);
        JOptionPane.showInputDialog("Register successful");
     }
 }

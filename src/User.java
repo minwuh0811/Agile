@@ -11,6 +11,7 @@ public class User {
     Varor varor;
     int id= new Random().nextInt(100) + 1;
     ArrayList<Varor> shoppingCartList = new ArrayList<>();
+    static ArrayList<User> userRegister = new ArrayList<>();
 
     public User (){}
 
@@ -27,7 +28,10 @@ public class User {
     }
 
 
+ //   public void addUser (User user) {
 
+   //     userRegister.add(user);
+   // }
 
 
     @Override
