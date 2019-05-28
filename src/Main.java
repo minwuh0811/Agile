@@ -18,14 +18,14 @@ public class Main  {
 
 
     public static void main (String[]args){
-
+        loadData();
         boolean newBoolean = true;
         while (newBoolean) {
 
             String string = JOptionPane.showInputDialog("For Administrator enter 1\nFor User press 2\nTo register new user press 3");
             int choice = Integer.parseInt(string);
-            if (choice == 1) {
-             logIn();
+            if (choice == 1 && logInAdmin()) {
+
 
              string = JOptionPane.showInputDialog("To add products press 1\nTo remove a product press 2");
                 choice = Integer.parseInt(string);
@@ -44,8 +44,7 @@ public class Main  {
                         newBoolean = false;
                 }
             }
-            else if (choice==2) {
-                logIn();
+            else if (choice==2 && logInUser()) {
                 string = JOptionPane.showInputDialog("To add product press 1");
                 choice = Integer.parseInt(string);
                 if (choice == 1) {
@@ -64,12 +63,42 @@ public class Main  {
         }
 
     }
+    public static void loadData(){
+        try{
+            //Class.forName("com.mysql.jdbc.Driver");
+
+            // 1. Get a connection to database
+            Connection con= DriverManager.getConnection(
+                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
+                    "jdbc:mysql://localhost:3306/OnlineShop","MagicDrunkMonkey","Katamaranbanan5!"
+            );
+
+            // 2. Create a statement
+            Statement stmt=con.createStatement();
+
+            // 3. Execute SQL query
+            ResultSet rs=stmt.executeQuery("select * from varulager;");
+
+            // 4. Process the result set
+            while(rs.next()) {
+                Varor varor = new Varor(rs.getString(1), rs.getDouble(2),rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDouble(6));
+                VaruLager.products.add(varor);
+
+            }
+            con.close();
+        }catch(Exception e){
+            JOptionPane.showInputDialog(e);
+        }
+    }
 
     public static void removeProduct () {
+
+
       String string=  JOptionPane.showInputDialog("Choose a product to be removed\n" + printArrayProduct()
         +"\nEnter the product ID");
 
         int id = Integer.parseInt(string);
+
 
         for (int i = 0; i < varuLager.products.size(); i++) {
             if (varuLager.products.get(i).getID() == id) {
@@ -77,6 +106,18 @@ public class Main  {
                 JOptionPane.showMessageDialog(null,"The products has been removed");
                 break;
             }
+        }
+
+        try{
+            Connection con= DriverManager.getConnection(
+                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
+                    "jdbc:mysql://localhost:3306/OnlineShop","MagicDrunkMonkey","Katamaranbanan5!"
+            );
+            String sqlString= "DELETE FROM varulager WHERE ID="+id+";";
+            Statement statement = con.createStatement();
+            statement.execute(sqlString);
+        }catch(Exception e){
+            JOptionPane.showInputDialog(e);
         }
 
     }
@@ -123,11 +164,12 @@ public class Main  {
 
     public static void addProductToCustomer(){
 
+
         String string = JOptionPane.showInputDialog(printArrayProduct() +"\nChoose a product by ID:");
         int chose = Integer.parseInt(string);
-        for (int i = 0; i < varuLager.products.size(); i++) {
-            if (varuLager.products.get(i).getID() == chose) {
-                user.shoppingCartList.add(varuLager.products.get(i));
+        for (int i = 0; i < VaruLager.products.size(); i++) {
+            if (VaruLager.products.get(i).getID() == chose) {
+                user.shoppingCartList.add(VaruLager.products.get(i));
                 JOptionPane.showMessageDialog(null,"The products has been added to your Shopping Cart");
                 break;
             }
@@ -137,6 +179,10 @@ public class Main  {
     public static int getID (){
 
         return varor.getID ();
+    }
+    public static int getIDuser (){
+
+        return user.getId ();
     }
     public static String printArrayShopping() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -155,8 +201,8 @@ public class Main  {
         return stringBuilder.toString();
     }
 
-    public static void logIn () {
-        Scanner input = new Scanner(System.in);
+    public static boolean logInAdmin () {
+        boolean verify = false;
 
         try{
             //Class.forName("com.mysql.jdbc.Driver");
@@ -186,26 +232,25 @@ public class Main  {
 
         String username;
         String password;
+        boolean bool = true;
 
         username = JOptionPane.showInputDialog("Log in: \nusername: ");
-
-
         password = JOptionPane.showInputDialog("password: ");
 
         for (int i = 0; i < Administrator.administrators.size(); i++) {
 
 
             if (username.equals(Administrator.administrators.get(i).getLoginName()) && password.equals(Administrator.administrators.get(i).getLoginPassword())) {
-                JOptionPane.showMessageDialog(null,"Welcome");
-                break;
-            } else if (username.equals(username)) {
-                JOptionPane.showInputDialog("Password is invalid");
-            } else if (password.equals(password)) {
-                JOptionPane.showInputDialog("Username does not exist!");
-            } else {
-                JOptionPane.showInputDialog("Try again, invalid input!");
+                JOptionPane.showMessageDialog(null,"Welcome ");
+                verify = true;
+                bool = false;
+
             }
         }
+        if (bool)
+            JOptionPane.showMessageDialog(null, "Try again, invalid Username or/and password!");
+
+        return verify;
     }
 
     public static void registerUser(){
@@ -221,12 +266,93 @@ public class Main  {
 
        name =  JOptionPane.showInputDialog("To register please enter your information: \nEnter your name:");
        lastName = JOptionPane.showInputDialog("Enter lastname:");
-       userName = JOptionPane.showInputDialog("Enter a username:");
-       userPassword= JOptionPane.showInputDialog("Enter a password:");
-       mail = JOptionPane.showInputDialog("Enter your email adress: ");
-       int ID = getID();
+       mail = JOptionPane.showInputDialog("Enter a mail:");
+       userName= JOptionPane.showInputDialog("Enter your username:");
+       userPassword = JOptionPane.showInputDialog("Enter your password: ");
+       int ID = getIDuser();
        User user = new User (name, lastName, mail, ID, userName, userPassword);
        User.userRegister.add(user);
+
+        try{
+            //Class.forName("com.mysql.jdbc.Driver");
+
+            // 1. Get a connection to database
+            Connection con= DriverManager.getConnection(
+                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
+                    "jdbc:mysql://localhost:3306/OnlineShop","MagicDrunkMonkey","Katamaranbanan5!"
+            );
+
+            // 2. Create a statement
+            Statement stmt=con.createStatement();
+            String string1= String.format("INSERT INTO user" +
+                    " VALUES(\"%s\",\"%s\",\"%s\",\"%d\",\"%s\",\"%s\");", name, lastName, mail, ID, userName, userPassword );
+            // 3. Execute SQL query
+            stmt.execute(string1);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+
+
+
+
        JOptionPane.showMessageDialog(null,"Register successful");
     }
+
+    public static boolean logInUser () {
+        boolean verify = false;
+
+        try {
+            //Class.forName("com.mysql.jdbc.Driver");
+
+            // 1. Get a connection to database
+            Connection con = DriverManager.getConnection(
+                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
+                    "jdbc:mysql://localhost:3306/OnlineShop", "MagicDrunkMonkey", "Katamaranbanan5!"
+            );
+
+            // 2. Create a statement
+            Statement stmt = con.createStatement();
+
+            // 3. Execute SQL query
+            ResultSet rs = stmt.executeQuery("select * from user;");
+
+            // 4. Process the result set
+            while (rs.next()) {
+                User user = new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6));
+                User.userRegister.add(user);
+
+            }
+            con.close();
+        } catch (Exception e) {
+            JOptionPane.showInputDialog(e);
+        }
+
+        String username;
+        String password;
+        boolean bool = true;
+
+
+            username = JOptionPane.showInputDialog("Log in: \nusername: ");
+            password = JOptionPane.showInputDialog("password: ");
+
+
+            for (int i = 0; i < User.userRegister.size(); i++) {
+
+                if (username.equals(User.userRegister.get(i).getUserName()) && password.equals(User.userRegister.get(i).getPassword())) {
+                    verify = true;
+                    JOptionPane.showMessageDialog(null, "Welcome ");
+                    bool = false;
+                    break;
+                }
+
+            }
+            if (bool)
+            JOptionPane.showMessageDialog(null, "Try again, invalid Username or/and password!");
+
+        return verify;
+    }
+
+
 }
+

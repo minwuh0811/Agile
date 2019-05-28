@@ -7,7 +7,7 @@ public class Varor  {
     private String varorName;
     private double varorPrice;
     private String typ;
-    private int ID;
+    private int ID = new Random().nextInt(100) + 1;
     private String varorKategori;
     private double varorAntal;
 
@@ -71,7 +71,7 @@ public class Varor  {
         this.varorPrice = varorPrice;
         this.typ = typ;
         this.varorKategori = varorKategori;
-        this.ID = new Random().nextInt(100) + 1;
+        this.ID = ID;
         this.varorAntal = varorAntal;
 
     }
