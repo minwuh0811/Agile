@@ -70,7 +70,7 @@ public class Main  {
                 choice = Integer.parseInt(string);
                 if (choice==1) {
                     addProductToCustomer();
-                    JOptionPane.showMessageDialog(null,"Products in shopingcart: \n" + printArrayShoping() );
+                    JOptionPane.showMessageDialog(null,"Products in shopingcart: \n" + printArrayShopping() );
 
                 }
                 else if(choice==2){
@@ -142,7 +142,7 @@ public class Main  {
 
         return varor.getID ();
     }
-    public static String printArrayShoping() {
+    public static String printArrayShopping() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Varor product : user.shoppingCartList) {
             stringBuilder.append(product.toString());
