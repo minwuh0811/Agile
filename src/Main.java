@@ -55,7 +55,7 @@ public class Main  {
             }
 
                 else if(choice==3){
-                    JOptionPane.showInputDialog("Enter your name");
+                    registerUser();
                 }
 
             else
