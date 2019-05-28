@@ -1,21 +1,32 @@
 import javax.swing.*;
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Random;
 
 
 public class Main  {
 
+    static Connection connection;
+    static Statement statement;
+    static ResultSet resultSet;
+    static Varor varor;
+    static User user;
+    static VaruLager varuLager;
+    static String dataBaseUserName = "root";
+    static String dataBaseUserPassword = "krasen86";
+    static String dataBaseMySQLUrl="jdbc:mysql://localhost/userstory?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    static String productDataBaseTable = "products";
+    static String adminDataBaseTable = "admin";
+    static String userDataBaseTable = "user";
 
-    static Varor varor = new Varor();
-    static User user = new User();
-    static VaruLager varuLager = new VaruLager();
-    //static User userRegister = new User();
-
+    public Main() {
+        varuLager = new VaruLager();
+        user = new User();
+        varor = new Varor();
+    }
 
     public static void main (String[]args){
         loadData();
@@ -50,7 +61,7 @@ public class Main  {
                 if (choice == 1) {
                     addProductToCustomer();
                     JOptionPane.showMessageDialog(null, "Products in shopingcart: \n" + printArrayShopping());
-
+                    break;
                 }
             }
 
@@ -64,30 +75,33 @@ public class Main  {
 
     }
     public static void loadData(){
-        try{
-            //Class.forName("com.mysql.jdbc.Driver");
+        try {
 
-            // 1. Get a connection to database
-            Connection con= DriverManager.getConnection(
-                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
-                    "jdbc:mysql://localhost:3306/OnlineShop","MagicDrunkMonkey","Katamaranbanan5!"
-            );
-
-            // 2. Create a statement
-            Statement stmt=con.createStatement();
-
-            // 3. Execute SQL query
-            ResultSet rs=stmt.executeQuery("select * from varulager;");
-
-            // 4. Process the result set
-            while(rs.next()) {
-                Varor varor = new Varor(rs.getString(1), rs.getDouble(2),rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDouble(6));
-                VaruLager.products.add(varor);
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection(dataBaseMySQLUrl, dataBaseUserName, dataBaseUserPassword);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("select * from "+userDataBaseTable+";");
+            while (resultSet.next()) {
+                User user = new User(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+                        resultSet.getInt(4), resultSet.getString(5), resultSet.getString(6));
+                User.userRegister.add(user);
 
             }
-            con.close();
-        }catch(Exception e){
-            JOptionPane.showInputDialog(e);
+            resultSet = statement.executeQuery("select * from "+adminDataBaseTable+";");
+
+            while(resultSet.next()) {
+                Administrator administrator = new Administrator(resultSet.getString(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6));
+                Administrator.administrators.add(administrator);
+            }
+            resultSet =statement.executeQuery("select * from "+productDataBaseTable+";");
+            while(resultSet.next()) {
+                Varor varor = new Varor(resultSet.getString(1), resultSet.getDouble(2),
+                        resultSet.getString(3), resultSet.getString(4), resultSet.getInt(5), resultSet.getDouble(6));
+                VaruLager.products.add(varor);
+
+            } }catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
         }
     }
 
@@ -98,26 +112,22 @@ public class Main  {
         +"\nEnter the product ID");
 
         int id = Integer.parseInt(string);
-
-
-        for (int i = 0; i < varuLager.products.size(); i++) {
-            if (varuLager.products.get(i).getID() == id) {
-                varuLager.products.remove(i);
+        for (int i = 0; i < VaruLager.products.size(); i++) {
+            if (VaruLager.products.get(i).getID() == id) {
+                VaruLager.products.remove(i);
                 JOptionPane.showMessageDialog(null,"The products has been removed");
                 break;
             }
         }
 
         try{
-            Connection con= DriverManager.getConnection(
-                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
-                    "jdbc:mysql://localhost:3306/OnlineShop","MagicDrunkMonkey","Katamaranbanan5!"
-            );
-            String sqlString= "DELETE FROM varulager WHERE ID="+id+";";
-            Statement statement = con.createStatement();
+            connection = DriverManager.getConnection(
+                    dataBaseMySQLUrl,dataBaseUserName,dataBaseUserPassword);
+            String sqlString= "DELETE FROM "+productDataBaseTable+" WHERE ID="+id+";";
+            statement = connection.createStatement();
             statement.execute(sqlString);
         }catch(Exception e){
-            JOptionPane.showInputDialog(e);
+            JOptionPane.showMessageDialog(null,e);
         }
 
     }
@@ -134,56 +144,48 @@ public class Main  {
         double amount = Integer.parseInt ( string);
         string = JOptionPane.showInputDialog ("Choose the category of the product: ");  //Kategori av produkten
         String category = string;
-        int id = getID ();
+        int id =  new Random().nextInt(100) + 1;
         varor = new Varor (name, price, type, category, id, amount);
 
         try{
-            //Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    dataBaseMySQLUrl,dataBaseUserName,dataBaseUserPassword );
 
-            // 1. Get a connection to database
-            Connection con= DriverManager.getConnection(
-                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
-                    "jdbc:mysql://localhost:3306/OnlineShop","MagicDrunkMonkey","Katamaranbanan5!"
-            );
-
-            // 2. Create a statement
-            Statement stmt=con.createStatement();
-        String string1= String.format("INSERT INTO varulager" +
+            statement =connection.createStatement();
+        String string1= String.format("INSERT INTO " + productDataBaseTable +
                     " VALUES(\"%s\",\"%s\",\"%s\",\"%s\",\"%d\",\"%s\");",varor.getVarorNameName(), varor.getVarorPrice(), varor.getTyp(), varor.getVarorKategori(), varor.getID(), varor.getVarorAntal());
-            // 3. Execute SQL query
-            stmt.execute(string1);
+            statement.execute(string1);
         }catch(Exception e){
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null,e);
         }
-        varuLager.products.add (varor);
+        VaruLager.products.add (varor);
         JOptionPane.showMessageDialog(null,"Product has been added.");
-        return varuLager.products;
+        return VaruLager.products;
 
 
     }
 
     public static void addProductToCustomer(){
 
-
-        String string = JOptionPane.showInputDialog(printArrayProduct() +"\nChoose a product by ID:");
-        int chose = Integer.parseInt(string);
-        for (int i = 0; i < VaruLager.products.size(); i++) {
-            if (VaruLager.products.get(i).getID() == chose) {
-                user.shoppingCartList.add(VaruLager.products.get(i));
-                JOptionPane.showMessageDialog(null,"The products has been added to your Shopping Cart");
-                break;
+        boolean addProduct=false;
+        do {
+            String string = JOptionPane.showInputDialog(printArrayProduct() + "\nChoose a product by ID:");
+            int chose = Integer.parseInt(string);
+            for (int i = 0; i < VaruLager.products.size(); i++) {
+                if (VaruLager.products.get(i).getID() == chose) {
+                    User.shoppingCartList.add(VaruLager.products.get(i));
+                    JOptionPane.showMessageDialog(null, "The products has been added to your Shopping Cart");
+                    int choose = Integer.parseInt(JOptionPane.showInputDialog("To add another product enter 1 / to exit enter 2"));
+                    if(choose==1)
+                        addProduct=true;
+                    else
+                        addProduct=false;
+                }
             }
         }
+        while (addProduct);
     }
 
-    public static int getID (){
-
-        return varor.getID ();
-    }
-    public static int getIDuser (){
-
-        return user.getId ();
-    }
     public static String printArrayShopping() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Varor product : user.shoppingCartList) {
@@ -194,7 +196,7 @@ public class Main  {
     }
     public static String printArrayProduct() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Varor product : varuLager.products) {
+        for (Varor product : VaruLager.products) {
             stringBuilder.append(product.toString());
             stringBuilder.append("\n");
         }
@@ -203,33 +205,6 @@ public class Main  {
 
     public static boolean logInAdmin () {
         boolean verify = false;
-
-        try{
-            //Class.forName("com.mysql.jdbc.Driver");
-
-            // 1. Get a connection to database
-            Connection con= DriverManager.getConnection(
-                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
-                    "jdbc:mysql://localhost:3306/OnlineShop","MagicDrunkMonkey","Katamaranbanan5!"
-            );
-
-            // 2. Create a statement
-            Statement stmt=con.createStatement();
-
-            // 3. Execute SQL query
-            ResultSet rs=stmt.executeQuery("select * from admin;");
-
-            // 4. Process the result set
-            while(rs.next()) {
-                Administrator administrator = new Administrator(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
-                Administrator.administrators.add(administrator);
-
-            }
-            con.close();
-        }catch(Exception e){
-            JOptionPane.showInputDialog(e);
-        }
-
         String username;
         String password;
         boolean bool = true;
@@ -254,10 +229,6 @@ public class Main  {
     }
 
     public static void registerUser(){
-
-
-        Scanner input = new Scanner(System.in);
-
         String name;
         String lastName;
         String mail;
@@ -269,64 +240,25 @@ public class Main  {
        mail = JOptionPane.showInputDialog("Enter a mail:");
        userName= JOptionPane.showInputDialog("Enter your username:");
        userPassword = JOptionPane.showInputDialog("Enter your password: ");
-       int ID = getIDuser();
+       int ID = new Random().nextInt(100) + 1;
        User user = new User (name, lastName, mail, ID, userName, userPassword);
        User.userRegister.add(user);
 
         try{
-            //Class.forName("com.mysql.jdbc.Driver");
-
-            // 1. Get a connection to database
-            Connection con= DriverManager.getConnection(
-                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
-                    "jdbc:mysql://localhost:3306/OnlineShop","MagicDrunkMonkey","Katamaranbanan5!"
-            );
-
-            // 2. Create a statement
-            Statement stmt=con.createStatement();
-            String string1= String.format("INSERT INTO user" +
+            connection = DriverManager.getConnection(
+                    dataBaseMySQLUrl,dataBaseUserName,dataBaseUserPassword            );
+            statement=connection.createStatement();
+            String string1= String.format("INSERT INTO "+ userDataBaseTable +
                     " VALUES(\"%s\",\"%s\",\"%s\",\"%d\",\"%s\",\"%s\");", name, lastName, mail, ID, userName, userPassword );
-            // 3. Execute SQL query
-            stmt.execute(string1);
+            statement.execute(string1);
         }catch(Exception e){
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null,e);
         }
-
-
-
-
-
        JOptionPane.showMessageDialog(null,"Register successful");
     }
 
     public static boolean logInUser () {
         boolean verify = false;
-
-        try {
-            //Class.forName("com.mysql.jdbc.Driver");
-
-            // 1. Get a connection to database
-            Connection con = DriverManager.getConnection(
-                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
-                    "jdbc:mysql://localhost:3306/OnlineShop", "MagicDrunkMonkey", "Katamaranbanan5!"
-            );
-
-            // 2. Create a statement
-            Statement stmt = con.createStatement();
-
-            // 3. Execute SQL query
-            ResultSet rs = stmt.executeQuery("select * from user;");
-
-            // 4. Process the result set
-            while (rs.next()) {
-                User user = new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6));
-                User.userRegister.add(user);
-
-            }
-            con.close();
-        } catch (Exception e) {
-            JOptionPane.showInputDialog(e);
-        }
 
         String username;
         String password;

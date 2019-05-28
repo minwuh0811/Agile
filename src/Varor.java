@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class Varor  {
 
     //private final static long serialVersionUID = 4661471824932115886L;
@@ -7,7 +5,7 @@ public class Varor  {
     private String varorName;
     private double varorPrice;
     private String typ;
-    private int ID = new Random().nextInt(100) + 1;
+    private int ID;
     private String varorKategori;
     private double varorAntal;
 

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Random;
 
 public class User {
 
@@ -9,8 +8,10 @@ public class User {
     private String userName;
     private String userPassword;
     Varor varor;
-    int id= new Random().nextInt(100) + 1;
-    ArrayList<Varor> shoppingCartList = new ArrayList<>();
+    int id;
+    static ArrayList<Varor> shoppingCartList;
+    static ArrayList<User> userRegister = new ArrayList<>();
+
 
     public User (){}
 
@@ -22,8 +23,7 @@ public class User {
         this.id = id;
         this.userName = userName;
         this.userPassword = userPassword;
-        shoppingCartList = new ArrayList<>();
-
+        this.shoppingCartList = new ArrayList<>();
     }
     @Override
     public String toString() {
