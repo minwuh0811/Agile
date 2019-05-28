@@ -1,4 +1,8 @@
 import javax.swing.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -11,6 +15,33 @@ public class Main  {
 
 
     public static void main (String[]args){
+
+        try{
+            //Class.forName("com.mysql.jdbc.Driver");
+
+            // 1. Get a connection to database
+            Connection con= DriverManager.getConnection(
+                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
+                    "jdbc:mysql://localhost:3306/OnlineShop","MagicDrunkMonkey","Katamaranbanan5!"
+            );
+
+            // 2. Create a statement
+            Statement stmt=con.createStatement();
+
+            // 3. Execute SQL query
+            stmt.execute("INSERT INTO varuLager VALUES(7, \"Tomato\", 23, \"Ecological\", \"sss\", 2);");
+
+            ResultSet rs=stmt.executeQuery("select * from varuLager;");
+
+            // 4. Process the result set
+            while(rs.next()) {
+               System.out.println(rs.getInt(1) + "\t " + rs.getString(2) + "\t " + rs.getInt(3));
+
+            }
+            con.close();
+        }catch(Exception e){
+            System.out.println(e);
+        }
 
         boolean newBoolean = true;
         while (newBoolean) {
@@ -50,6 +81,12 @@ public class Main  {
             else
                 break;
         }
+
+        // SQL try rapping up
+//            con.close();
+//        }catch(Exception e){
+//            System.out.println(e);
+//        }
     }
 
     public static void removeProduct () {
