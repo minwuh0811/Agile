@@ -18,40 +18,12 @@ public class Main  {
 
     public static void main (String[]args){
 
-        try{
-            //Class.forName("com.mysql.jdbc.Driver");
-
-            // 1. Get a connection to database
-            Connection con= DriverManager.getConnection(
-                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
-                    "jdbc:mysql://localhost:3306/OnlineShop","MagicDrunkMonkey","Katamaranbanan5!"
-            );
-
-            // 2. Create a statement
-            Statement stmt=con.createStatement();
-
-            // 3. Execute SQL query
-            stmt.execute("INSERT INTO varuLager VALUES(7, \"Tomato\", 23, \"Ecological\", \"sss\", 2);");
-
-            ResultSet rs=stmt.executeQuery("select * from varuLager;");
-
-            // 4. Process the result set
-            while(rs.next()) {
-               System.out.println(rs.getInt(1) + "\t " + rs.getString(2) + "\t " + rs.getInt(3));
-
-            }
-            con.close();
-        }catch(Exception e){
-            System.out.println(e);
-        }
-
         boolean newBoolean = true;
         while (newBoolean) {
 
             String string = JOptionPane.showInputDialog("For Administrator enter 1\nFor User press 2\nTo register new user press 4");
             int choice = Integer.parseInt(string);
             if (choice == 1) {
-             JOptionPane.showInputDialog("To log in enter username:");
              logIn();
 
              string = JOptionPane.showInputDialog("To add products press 1\nTo remove a product press 2");
@@ -212,18 +184,17 @@ public class Main  {
         String username;
         String password;
 
+        username = JOptionPane.showInputDialog("Log in: \nusername: ");
 
-        JOptionPane.showInputDialog("Log in:");
-        JOptionPane.showInputDialog("username: ");
-        username = input.next();
-        JOptionPane.showInputDialog("password: ");
-        password = input.next();
+
+        password = JOptionPane.showInputDialog("password: ");
 
         for (int i = 0; i < Administrator.administrators.size(); i++) {
 
 
             if (username.equals(Administrator.administrators.get(i).getLoginName()) && password.equals(Administrator.administrators.get(i).getLoginPassword())) {
-                JOptionPane.showInputDialog("Welcome");
+                JOptionPane.showMessageDialog(null,"Welcome");
+                break;
             } else if (username.equals(username)) {
                 JOptionPane.showInputDialog("Password is invalid");
             } else if (password.equals(password)) {
