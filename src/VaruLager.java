@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class VaruLager {
 
-    public ArrayList<Varor> products = new ArrayList<>();
+    public static ArrayList<Varor> products = new ArrayList<>();
     private Varor varor;
     private double varorAntal;
 
