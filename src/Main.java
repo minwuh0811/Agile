@@ -87,11 +87,6 @@ public class Main  {
                 break;
         }
 
-        // SQL try rapping up
-//            con.close();
-//        }catch(Exception e){
-//            System.out.println(e);
-//        }
     }
 
     public static void removeProduct () {
@@ -124,9 +119,29 @@ public class Main  {
         String category = string;
         int id = getID ();
         varor = new Varor (name, price, type, category, id, amount);
+
+        try{
+            //Class.forName("com.mysql.jdbc.Driver");
+
+            // 1. Get a connection to database
+            Connection con= DriverManager.getConnection(
+                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
+                    "jdbc:mysql://localhost:3306/OnlineShop","MagicDrunkMonkey","Katamaranbanan5!"
+            );
+
+            // 2. Create a statement
+            Statement stmt=con.createStatement();
+        String string1= String.format("INSERT INTO varulager" +
+                    " VALUES(\"%s\",\"%s\",\"%s\",\"%s\",\"%d\",\"%s\");",varor.getVarorNameName(), varor.getVarorPrice(), varor.getTyp(), varor.getVarorKategori(), varor.getID(), varor.getVarorAntal());
+            // 3. Execute SQL query
+            stmt.execute(string1);
+        }catch(Exception e){
+            System.out.println(e);
+        }
         varuLager.products.add (varor);
         JOptionPane.showMessageDialog(null,"Product has been added.");
         return varuLager.products;
+
 
     }
 
@@ -167,8 +182,35 @@ public class Main  {
     public static void logIn () {
         Scanner input = new Scanner(System.in);
 
+        try{
+            //Class.forName("com.mysql.jdbc.Driver");
+
+            // 1. Get a connection to database
+            Connection con= DriverManager.getConnection(
+                    //"jdbc:mysql://localhost:3306/FruitShop","MagicDrunkMonkey","Katamaranbanan5!"
+                    "jdbc:mysql://localhost:3306/OnlineShop","MagicDrunkMonkey","Katamaranbanan5!"
+            );
+
+            // 2. Create a statement
+            Statement stmt=con.createStatement();
+
+            // 3. Execute SQL query
+            ResultSet rs=stmt.executeQuery("select * from admin;");
+
+            // 4. Process the result set
+            while(rs.next()) {
+                Administrator administrator = new Administrator(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+                Administrator.administrators.add(administrator);
+
+            }
+            con.close();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
         String username;
         String password;
+
 
         System.out.println("Log in:");
         System.out.println("username: ");
@@ -176,20 +218,23 @@ public class Main  {
         System.out.println("password: ");
         password = input.next();
 
+        for (int i = 0; i < Administrator.administrators.size(); i++) {
 
-        if (username.equals(username) && password.equals(password)) {
-            System.out.println("Welcome");
-        }
-        else if (username.equals(username)) {
-            System.out.println("Password is invalid");
-        } else if (password.equals(password)) {
-            System.out.println("Username does not exist!");
-        } else {
-            System.out.println("Try again, invalid input!");
+
+            if (username.equals(Administrator.administrators.get(i).getLoginName()) && password.equals(Administrator.administrators.get(i).getLoginPassword())) {
+                System.out.println("Welcome");
+            } else if (username.equals(username)) {
+                System.out.println("Password is invalid");
+            } else if (password.equals(password)) {
+                System.out.println("Username does not exist!");
+            } else {
+                System.out.println("Try again, invalid input!");
+            }
         }
     }
 
     public static void registerUser(){
+
 
         Scanner input = new Scanner(System.in);
 

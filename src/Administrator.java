@@ -6,15 +6,18 @@ public class Administrator {
     The Administrator Class maneges the administrator and their getters and setters
 */
 
+    public Administrator() {
+    }
+
     private String administratorFirstName;
     private String administratorLastName;
     private String staffNumberID;
-    private int administratorMail;
+    private String administratorMail;
     private String loginName;
     private String loginPassword;
-    private ArrayList<Administrator> administrators = new ArrayList<> ();
+    public static ArrayList<Administrator> administrators = new ArrayList<> ();
 
-    public Administrator (String administratorFirstName, String administratorLastName, String staffNumberID, int administratorMail, String loginName, String loginPassword) {
+    public Administrator (String administratorFirstName, String administratorLastName, String staffNumberID, String administratorMail, String loginName, String loginPassword) {
         this.administratorFirstName = administratorFirstName;
         this.administratorLastName = administratorLastName;
         this.staffNumberID = staffNumberID;
@@ -59,11 +62,11 @@ public class Administrator {
         this.staffNumberID = staffNumberID;
     }
 
-    public int getAdministratorMail () {
+    public String getAdministratorMail () {
         return administratorMail;
     }
 
-    public void setAdministratorMail (int administratorMail) {
+    public void setAdministratorMail (String administratorMail) {
         this.administratorMail = administratorMail;
     }
 
