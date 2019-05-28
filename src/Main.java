@@ -53,6 +53,7 @@ public class Main  {
             if (choice == 1) {
              JOptionPane.showInputDialog("To log in enter username:");
              logIn();
+
              string = JOptionPane.showInputDialog("To add products press 1\nTo remove a product press 2");
                 choice = Integer.parseInt(string);
                 switch (choice) {
@@ -205,30 +206,30 @@ public class Main  {
             }
             con.close();
         }catch(Exception e){
-            System.out.println(e);
+            JOptionPane.showInputDialog(e);
         }
 
         String username;
         String password;
 
 
-        System.out.println("Log in:");
-        System.out.println("username: ");
+        JOptionPane.showInputDialog("Log in:");
+        JOptionPane.showInputDialog("username: ");
         username = input.next();
-        System.out.println("password: ");
+        JOptionPane.showInputDialog("password: ");
         password = input.next();
 
         for (int i = 0; i < Administrator.administrators.size(); i++) {
 
 
             if (username.equals(Administrator.administrators.get(i).getLoginName()) && password.equals(Administrator.administrators.get(i).getLoginPassword())) {
-                System.out.println("Welcome");
+                JOptionPane.showInputDialog("Welcome");
             } else if (username.equals(username)) {
-                System.out.println("Password is invalid");
+                JOptionPane.showInputDialog("Password is invalid");
             } else if (password.equals(password)) {
-                System.out.println("Username does not exist!");
+                JOptionPane.showInputDialog("Username does not exist!");
             } else {
-                System.out.println("Try again, invalid input!");
+                JOptionPane.showInputDialog("Try again, invalid input!");
             }
         }
     }
@@ -242,13 +243,13 @@ public class Main  {
         String password;
         String email;
 
-        System.out.println("To register please enter your information");
-        System.out.println("Enter a username:");
+        JOptionPane.showInputDialog("To register please enter your information");
+        JOptionPane.showInputDialog("Enter a username:");
         username = input.next();
-        System.out.println("Enter a password:");
+        JOptionPane.showInputDialog("Enter a password:");
         password = input.next();
-        System.out.println("Enter your email adress: ");
+        JOptionPane.showInputDialog("Enter your email adress: ");
         email = input.next();
-        System.out.println("Register successful");
+        JOptionPane.showInputDialog("Register successful");
     }
 }
