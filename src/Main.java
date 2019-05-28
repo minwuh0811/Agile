@@ -22,7 +22,7 @@ public class Main  {
         boolean newBoolean = true;
         while (newBoolean) {
 
-            String string = JOptionPane.showInputDialog("For Administrator enter 1\nFor User press 2\nTo register new user press 4");
+            String string = JOptionPane.showInputDialog("For Administrator enter 1\nFor User press 2\nTo register new user press 3");
             int choice = Integer.parseInt(string);
             if (choice == 1) {
              logIn();
@@ -45,7 +45,8 @@ public class Main  {
                 }
             }
             else if (choice==2) {
-                string = JOptionPane.showInputDialog("To add product press 1\nTo register press 2");
+                logIn();
+                string = JOptionPane.showInputDialog("To add product press 1");
                 choice = Integer.parseInt(string);
                 if (choice == 2) {
                     addProductToCustomer();
@@ -226,6 +227,6 @@ public class Main  {
        int ID = getID();
        User user = new User (name, lastName, mail, ID, userName, userPassword);
        User.userRegister.add(user);
-       JOptionPane.showInputDialog("Register successful");
+       JOptionPane.showMessageDialog(null,"Register successful");
     }
 }
