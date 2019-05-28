@@ -1,9 +1,11 @@
 import javax.swing.*;
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class Main  {
@@ -46,12 +48,15 @@ public class Main  {
         boolean newBoolean = true;
         while (newBoolean) {
 
-            String string = JOptionPane.showInputDialog("For Administrator enter 1\nFor User press 2");
+            String string = JOptionPane.showInputDialog("For Administrator enter 1\nFor User press 2\nTo register new user press 4");
             int choice = Integer.parseInt(string);
             if (choice == 1) {
+             JOptionPane.showInputDialog("To log in enter username:");
+             logIn();
              string = JOptionPane.showInputDialog("To add products press 1\nTo remove a product press 2");
                 choice = Integer.parseInt(string);
                 switch (choice) {
+
                     case 1:
                         addProduct();
                         break;
@@ -68,7 +73,7 @@ public class Main  {
             else if (choice==2){
                 string = JOptionPane.showInputDialog("To add product press 1\nTo register press 2");
                 choice = Integer.parseInt(string);
-                if (choice==1) {
+                if (choice==2) {
                     addProductToCustomer();
                     JOptionPane.showMessageDialog(null,"Products in shopingcart: \n" + printArrayShoping() );
 
@@ -157,5 +162,48 @@ public class Main  {
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    public static void logIn () {
+        Scanner input = new Scanner(System.in);
+
+        String username;
+        String password;
+
+        System.out.println("Log in:");
+        System.out.println("username: ");
+        username = input.next();
+        System.out.println("password: ");
+        password = input.next();
+
+
+        if (username.equals(username) && password.equals(password)) {
+            System.out.println("Welcome");
+        }
+        else if (username.equals(username)) {
+            System.out.println("Password is invalid");
+        } else if (password.equals(password)) {
+            System.out.println("Username does not exist!");
+        } else {
+            System.out.println("Try again, invalid input!");
+        }
+    }
+
+    public static void registerUser(){
+
+        Scanner input = new Scanner(System.in);
+
+        String username;
+        String password;
+        String email;
+
+        System.out.println("To register please enter your information");
+        System.out.println("Enter a username:");
+        username = input.next();
+        System.out.println("Enter a password:");
+        password = input.next();
+        System.out.println("Enter your email adress: ");
+        email = input.next();
+        System.out.println("Register successful");
     }
 }
