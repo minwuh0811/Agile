@@ -20,6 +20,16 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="com.adobe.testing:s3mock-junit5:2.1.7" level="project" />
-    <orderEntry type="library" exported="" name="mysql:mysql-connector-java:8.0.16" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../mockito-core-2.27.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Java-FX-11" level="application" />
+    <orderEntry type="library" name="mysql:mysql-connector-java:8.0.16" level="project" />
   </component>
 </module>
