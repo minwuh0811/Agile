@@ -1,9 +1,14 @@
-CREATE TABLE admin(administratorFirstName varchar(255), administratorLastName varchar(255), staffNumberID varchar(255), administratorMail varchar(255), loginName varchar(255), loginPassword varchar(255) );
-CREATE TABLE user(name varchar(255), lastName varchar(255), mail varchar(255), userID int, userName varchar(255), userPassword varchar(255) );
-CREATE TABLE products(varorName varchar(255), varorPrice double, typ varchar(255),  varorKategori varchar(255), varorID int, varorAntal double);
+1. Docker command used to mysql
 docker run -p 3306:3306 --name mysql5719 -e MYSQL_DATABASE=firstdb -e MYSQL_ROOT_PASSWORD=password -d mysql
 docker exec -it mysql5719 bash
 mysql -uroot -p firstdb
+2. SQL command Create Table
 
-INSERT INTO admin(administratorFirstName, administratorLastName, staffNumberID, administratorMail, loginName, loginPassword ) VALUE ('Min', 'Wu', 'minwuh081@gmail.com','AD0001', 'wumin040718', 'password')
+CREATE TABLE admin(administratorFirstName varchar(255), administratorLastName varchar(255), staffNumberID int NOT NULL UNIQUE, administratorMail varchar(255), loginName varchar(255), loginPassword varchar(255), PRIMARY KEY (staffNumberID) );
+CREATE TABLE user(name varchar(255), lastName varchar(255), mail varchar(255), userID int NOT NULL UNIQUE, userName varchar(255), userPassword varchar(255), PRIMARY KEY (userID) );
+CREATE TABLE products(varorName varchar(255), varorPrice double, typ varchar(255),  varorKategori varchar(255), varorID int NOT NULL UNIQUE, varorAntal double, PRIMARY KEY (varorID));
+
+3 Insert Data
+For Exampel:
+INSERT INTO admin(administratorFirstName, administratorLastName, staffNumberID, administratorMail, loginName, loginPassword ) VALUE ('Min', 'Wu', 1, 'minwuh081@gmail.com', 'wumin040718', 'password')
 INSERT INTO user(name, lastName , mail , userID , userName , userPassword) VALUE ('Min', 'Wu', '7788@gmai.com', 1, 'wumin040718', 'password');
